@@ -1,0 +1,108 @@
+import React, { useState } from 'react';
+import { Search, Leaf, Flame, Heart } from 'lucide-react';
+
+const menuData = [
+  { id: 1, name: 'Quinoa Salad', category: 'Vegan', price: 12.99, calories: '320 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=300&auto=format&fit=crop' },
+  { id: 2, name: 'Grilled Chicken Breast', category: 'High Protein', price: 15.50, calories: '450 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=300&auto=format&fit=crop' },
+  { id: 3, name: 'Avocado Toast', category: 'Breakfast', price: 9.99, calories: '280 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop' },
+  { id: 4, name: 'Salmon Poke Bowl', category: 'Seafood', price: 18.25, calories: '520 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&auto=format&fit=crop' },
+  { id: 5, name: 'Vegan Buddha Bowl', category: 'Vegan', price: 14.00, calories: '380 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=300&auto=format&fit=crop' },
+  { id: 6, name: 'Keto Steak', category: 'Keto', price: 22.00, calories: '650 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=300&auto=format&fit=crop' },
+  { id: 7, name: 'Zucchini Noodles', category: 'Vegan', price: 11.50, calories: '180 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=300&auto=format&fit=crop' },
+  { id: 8, name: 'Greek Yogurt Parfait', category: 'Breakfast', price: 7.99, calories: '240 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=300&auto=format&fit=crop' },
+  { id: 9, name: 'Lentil Soup', category: 'Vegan', price: 8.50, calories: '210 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1547592116-359910d8f7f8?q=80&w=300&auto=format&fit=crop' },
+  { id: 10, name: 'Turkey Wrap', category: 'High Protein', price: 10.99, calories: '390 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=300&auto=format&fit=crop' },
+  { id: 11, name: 'Acai Bowl', category: 'Vegan', price: 13.50, calories: '310 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=300&auto=format&fit=crop' },
+  { id: 12, name: 'Grilled Tofu Skewers', category: 'Vegan', price: 11.00, calories: '260 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1546069901-5ec6a7097f3b?q=80&w=300&auto=format&fit=crop' },
+  { id: 13, name: 'Egg White Omelet', category: 'Breakfast', price: 9.00, calories: '220 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop' },
+  { id: 14, name: 'Cauliflower Pizza', category: 'Keto', price: 16.99, calories: '420 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=300&auto=format&fit=crop' },
+  { id: 15, name: 'Shrimp Tacos', category: 'Seafood', price: 17.50, calories: '380 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1512838243191-e81e8f66f1fd?q=80&w=300&auto=format&fit=crop' },
+  { id: 16, name: 'Mushroom Risotto', category: 'High Protein', price: 14.99, calories: '410 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?q=80&w=300&auto=format&fit=crop' },
+  { id: 17, name: 'Oatmeal with Fruits', category: 'Breakfast', price: 6.99, calories: '290 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?q=80&w=300&auto=format&fit=crop' },
+  { id: 18, name: 'Beef Stir Fry', category: 'High Protein', price: 19.00, calories: '540 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1512058560366-c80b0426c6f4?q=80&w=300&auto=format&fit=crop' },
+  { id: 19, name: 'Sweet Potato Fries', category: 'Vegan', price: 6.50, calories: '230 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1573082818143-bc201bd4d6ca?q=80&w=300&auto=format&fit=crop' },
+  { id: 20, name: 'Chicken Caesar Salad', category: 'High Protein', price: 13.99, calories: '480 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=300&auto=format&fit=crop' },
+  { id: 21, name: 'Baked Cod', category: 'Seafood', price: 20.00, calories: '310 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=300&auto=format&fit=crop' },
+  { id: 22, name: 'Spiced Chickpeas', category: 'Vegan', price: 7.00, calories: '190 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?q=80&w=300&auto=format&fit=crop' },
+  { id: 23, name: 'Berry Green Smoothie', category: 'Vegan', price: 8.00, calories: '150 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=300&auto=format&fit=crop' },
+  { id: 24, name: 'Pesto Pasta (Whole Wheat)', category: 'High Protein', price: 12.50, calories: '430 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1473093226795-af9932fe5856?q=80&w=300&auto=format&fit=crop' },
+  { id: 25, name: 'Tuna Salad Wrap', category: 'Seafood', price: 11.99, calories: '350 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=300&auto=format&fit=crop' },
+  { id: 26, name: 'Edamame Beans', category: 'Vegan', price: 5.99, calories: '120 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1515466810232-026857640698?q=80&w=300&auto=format&fit=crop' },
+  { id: 27, name: 'Stuffed Bell Peppers', category: 'Keto', price: 14.50, calories: '370 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?q=80&w=300&auto=format&fit=crop' },
+  { id: 28, name: 'Chia Seed Pudding', category: 'Breakfast', price: 8.25, calories: '210 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=300&auto=format&fit=crop' },
+  { id: 29, name: 'Broccoli Soup', category: 'Vegan', price: 7.50, calories: '160 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?q=80&w=300&auto=format&fit=crop' },
+  { id: 30, name: 'Grilled Sea Bass', category: 'Seafood', price: 25.00, calories: '340 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1516714435131-44d6b64dc3a2?q=80&w=300&auto=format&fit=crop' }
+];
+
+const ExploreMenu = () => {
+  const [filter, setFilter] = useState('All');
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredDishes = menuData.filter(dish => {
+    const matchesFilter = filter === 'All' || dish.type === filter || dish.category === filter;
+    const matchesSearch = dish.name.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+
+  return (
+    <div className="min-h-screen bg-white p-6 md:p-12">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-black text-green-900 mb-8">Fuel Your Body 🥗</h1>
+
+        {/* Filters & Search */}
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-12">
+          <div className="flex gap-2 overflow-x-auto pb-2">
+            {['All', 'veg', 'non-veg', 'Vegan', 'High Protein'].map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setFilter(cat)}
+                className={`px-6 py-2 rounded-full font-bold text-sm transition-all whitespace-nowrap ${filter === cat ? 'bg-green-600 text-white' : 'bg-green-50 text-green-700 border border-green-100 hover:bg-green-100'}`}
+              >
+                {cat.toUpperCase()}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative w-full md:w-80">
+            <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            <input 
+              type="text" 
+              placeholder="Search dishes..."
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 outline-none"
+            />
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {filteredDishes.map((dish) => (
+            <div key={dish.id} className="group bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img src={dish.image} alt={dish.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-green-800 flex items-center gap-1">
+                  <Flame size={12} className="text-orange-500" /> {dish.calories}
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="font-bold text-lg text-gray-800 leading-tight">{dish.name}</h3>
+                  <div className={`w-3 h-3 rounded-full border ${dish.type === 'veg' ? 'bg-green-500 border-green-700' : 'bg-red-500 border-red-700'}`}></div>
+                </div>
+                <p className="text-sm text-gray-500 mb-4">{dish.category}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xl font-black text-green-700">${dish.price}</span>
+                  <button className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg shadow-lg shadow-green-100 transition-colors">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ExploreMenu;

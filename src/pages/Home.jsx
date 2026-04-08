@@ -1,6 +1,19 @@
 // src/pages/Home.jsx
 import React from 'react';
+import { auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 
+const Home = () => {
+  const navigate = useNavigate();
+
+  const handleExploreClick = () => {
+    const user = auth.currentUser; // Check if user is logged in
+    if (user) {
+      navigate('/explore-menu'); // Agar login hai toh menu pe bhejo
+    } else {
+      navigate('/signin'); // Agar nahi hai toh signin pe
+    }
+  };
 // Mock data for food cards
 const healthyFoods = [
   {
@@ -53,7 +66,7 @@ const FoodCard = ({ food }) => (
   </div>
 );
 
-const Home = () => {
+
   return (
     <div className="min-h-screen bg-green-50/50 px-6 py-12 md:px-12 md:py-16">
       
@@ -91,9 +104,13 @@ const Home = () => {
               & Be Healthy.
             </p>
             
-            <button className="w-full bg-brown-700 hover:bg-brown-800 text-amber-300 text-xl font-bold py-4 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-3">
-              Explore Our Menu <span className="text-2xl">➔</span>
-            </button>
+           {/* Explore Menu Button Update */}
+  <button 
+    onClick={handleExploreClick}
+    className="w-full bg-green-800 hover:bg-green-900 text-amber-300 text-xl font-bold py-4 rounded-xl shadow-lg transition-colors flex items-center justify-center gap-3"
+  >
+    Explore Our Menu <span className="text-2xl">➔</span>
+  </button>
             
             <p className="text-xs text-gray-500 mt-6">
               Eat fresh, stay strong. HealthDish delivers nutrition at your doorstep.
