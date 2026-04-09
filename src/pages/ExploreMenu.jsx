@@ -4,37 +4,40 @@ import { useCart } from '../context/CartContext';
 import AIAdvisor from '../components/AIAdvisor'; // AI Advisor import kiya
 
 const menuData = [
-  // ... tera 30 dishes wala data yahan rahega (keeping it same)
-  { id: 1, name: 'Quinoa Salad', category: 'Vegan', price: 12.99, calories: '320 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=300&auto=format&fit=crop' },
-  { id: 2, name: 'Grilled Chicken Breast', category: 'High Protein', price: 15.50, calories: '450 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=300&auto=format&fit=crop' },
-  { id: 3, name: 'Avocado Toast', category: 'Breakfast', price: 9.99, calories: '280 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop' },
-  { id: 4, name: 'Salmon Poke Bowl', category: 'Seafood', price: 18.25, calories: '520 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&auto=format&fit=crop' },
-  { id: 5, name: 'Vegan Buddha Bowl', category: 'Vegan', price: 14.00, calories: '380 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=300&auto=format&fit=crop' },
-  { id: 6, name: 'Keto Steak', category: 'Keto', price: 22.00, calories: '650 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=300&auto=format&fit=crop' },
-  { id: 7, name: 'Zucchini Noodles', category: 'Vegan', price: 11.50, calories: '180 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=300&auto=format&fit=crop' },
-  { id: 8, name: 'Greek Yogurt Parfait', category: 'Breakfast', price: 7.99, calories: '240 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=300&auto=format&fit=crop' },
-  { id: 9, name: 'Lentil Soup', category: 'Vegan', price: 8.50, calories: '210 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1547592116-359910d8f7f8?q=80&w=300&auto=format&fit=crop' },
-  { id: 10, name: 'Turkey Wrap', category: 'High Protein', price: 10.99, calories: '390 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=300&auto=format&fit=crop' },
-  { id: 11, name: 'Acai Bowl', category: 'Vegan', price: 13.50, calories: '310 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=300&auto=format&fit=crop' },
-  { id: 12, name: 'Grilled Tofu Skewers', category: 'Vegan', price: 11.00, calories: '260 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1546069901-5ec6a7097f3b?q=80&w=300&auto=format&fit=crop' },
-  { id: 13, name: 'Egg White Omelet', category: 'Breakfast', price: 9.00, calories: '220 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop' },
-  { id: 14, name: 'Cauliflower Pizza', category: 'Keto', price: 16.99, calories: '420 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=300&auto=format&fit=crop' },
-  { id: 15, name: 'Shrimp Tacos', category: 'Seafood', price: 17.50, calories: '380 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1512838243191-e81e8f66f1fd?q=80&w=300&auto=format&fit=crop' },
-  { id: 16, name: 'Mushroom Risotto', category: 'High Protein', price: 14.99, calories: '410 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?q=80&w=300&auto=format&fit=crop' },
-  { id: 17, name: 'Oatmeal with Fruits', category: 'Breakfast', price: 6.99, calories: '290 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?q=80&w=300&auto=format&fit=crop' },
-  { id: 18, name: 'Beef Stir Fry', category: 'High Protein', price: 19.00, calories: '540 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1512058560366-c80b0426c6f4?q=80&w=300&auto=format&fit=crop' },
-  { id: 19, name: 'Sweet Potato Fries', category: 'Vegan', price: 6.50, calories: '230 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1573082818143-bc201bd4d6ca?q=80&w=300&auto=format&fit=crop' },
-  { id: 20, name: 'Chicken Caesar Salad', category: 'High Protein', price: 13.99, calories: '480 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=300&auto=format&fit=crop' },
-  { id: 21, name: 'Baked Cod', category: 'Seafood', price: 20.00, calories: '310 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=300&auto=format&fit=crop' },
-  { id: 22, name: 'Spiced Chickpeas', category: 'Vegan', price: 7.00, calories: '190 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?q=80&w=300&auto=format&fit=crop' },
-  { id: 23, name: 'Berry Green Smoothie', category: 'Vegan', price: 8.00, calories: '150 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=300&auto=format&fit=crop' },
-  { id: 24, name: 'Pesto Pasta (Whole Wheat)', category: 'High Protein', price: 12.50, calories: '430 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1473093226795-af9932fe5856?q=80&w=300&auto=format&fit=crop' },
-  { id: 25, name: 'Tuna Salad Wrap', category: 'Seafood', price: 11.99, calories: '350 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=300&auto=format&fit=crop' },
-  { id: 26, name: 'Edamame Beans', category: 'Vegan', price: 5.99, calories: '120 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1515466810232-026857640698?q=80&w=300&auto=format&fit=crop' },
-  { id: 27, name: 'Stuffed Bell Peppers', category: 'Keto', price: 14.50, calories: '370 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?q=80&w=300&auto=format&fit=crop' },
-  { id: 28, name: 'Chia Seed Pudding', category: 'Breakfast', price: 8.25, calories: '210 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=300&auto=format&fit=crop' },
-  { id: 29, name: 'Broccoli Soup', category: 'Vegan', price: 7.50, calories: '160 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?q=80&w=300&auto=format&fit=crop' },
-  { id: 30, name: 'Grilled Sea Bass', category: 'Seafood', price: 25.00, calories: '340 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1516714435131-44d6b64dc3a2?q=80&w=300&auto=format&fit=crop' }
+  { id: 1, name: 'Quinoa Salad', category: 'Vegan', price: 320, calories: '320 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=300&auto=format&fit=crop' },
+  { id: 2, name: 'Grilled Chicken Breast', category: 'High Protein', price: 450, calories: '450 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=300&auto=format&fit=crop' },
+  { id: 3, name: 'Avocado Toast', category: 'Breakfast', price: 300, calories: '280 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop' },
+  { id: 4, name: 'Salmon Poke Bowl', category: 'Seafood', price: 650, calories: '520 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=300&auto=format&fit=crop' },
+  { id: 5, name: 'Vegan Buddha Bowl', category: 'Vegan', price: 380, calories: '380 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=300&auto=format&fit=crop' },
+  { id: 6, name: 'Keto Steak', category: 'Keto', price: 700, calories: '650 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=300&auto=format&fit=crop' },
+  { id: 7, name: 'Zucchini Noodles', category: 'Vegan', price: 310, calories: '180 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?q=80&w=300&auto=format&fit=crop' },
+  { id: 8, name: 'Greek Yogurt Parfait', category: 'Breakfast', price: 340, calories: '240 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?q=80&w=300&auto=format&fit=crop' },
+  { id: 9, name: 'Lentil Soup', category: 'Vegan', price: 300, calories: '210 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1547592116-359910d8f7f8?q=80&w=300&auto=format&fit=crop' },
+  { id: 10, name: 'Turkey Wrap', category: 'High Protein', price: 420, calories: '390 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?q=80&w=300&auto=format&fit=crop' },
+
+  { id: 11, name: 'Acai Bowl', price: 360, category: 'Vegan', calories: '310 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1590301157890-4810ed352733?q=80&w=300&auto=format&fit=crop' },
+  { id: 12, name: 'Grilled Tofu Skewers', price: 330, category: 'Vegan', calories: '260 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1546069901-5ec6a7097f3b?q=80&w=300&auto=format&fit=crop' },
+  { id: 13, name: 'Egg White Omelet', price: 310, category: 'Breakfast', calories: '220 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop' },
+  { id: 14, name: 'Cauliflower Pizza', price: 520, category: 'Keto', calories: '420 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=300&auto=format&fit=crop' },
+  { id: 15, name: 'Shrimp Tacos', price: 600, category: 'Seafood', calories: '380 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1512838243191-e81e8f66f1fd?q=80&w=300&auto=format&fit=crop' },
+
+  { id: 16, name: 'Mushroom Risotto', price: 480, category: 'High Protein', calories: '410 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?q=80&w=300&auto=format&fit=crop' },
+  { id: 17, name: 'Oatmeal with Fruits', price: 300, category: 'Breakfast', calories: '290 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1517673400267-0251440c45dc?q=80&w=300&auto=format&fit=crop' },
+  { id: 18, name: 'Beef Stir Fry', price: 680, category: 'High Protein', calories: '540 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1512058560366-c80b0426c6f4?q=80&w=300&auto=format&fit=crop' },
+  { id: 19, name: 'Sweet Potato Fries', price: 300, category: 'Vegan', calories: '230 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1573082818143-bc201bd4d6ca?q=80&w=300&auto=format&fit=crop' },
+  { id: 20, name: 'Chicken Caesar Salad', price: 490, category: 'High Protein', calories: '480 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?q=80&w=300&auto=format&fit=crop' },
+
+  { id: 21, name: 'Baked Cod', price: 620, category: 'Seafood', calories: '310 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=300&auto=format&fit=crop' },
+  { id: 22, name: 'Spiced Chickpeas', price: 300, category: 'Vegan', calories: '190 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1541529086526-db283c563270?q=80&w=300&auto=format&fit=crop' },
+  { id: 23, name: 'Berry Green Smoothie', price: 320, category: 'Vegan', calories: '150 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=300&auto=format&fit=crop' },
+  { id: 24, name: 'Pesto Pasta (Whole Wheat)', price: 510, category: 'High Protein', calories: '430 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1473093226795-af9932fe5856?q=80&w=300&auto=format&fit=crop' },
+  { id: 25, name: 'Tuna Salad Wrap', price: 470, category: 'Seafood', calories: '350 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?q=80&w=300&auto=format&fit=crop' },
+
+  { id: 26, name: 'Edamame Beans', price: 300, category: 'Vegan', calories: '120 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1515466810232-026857640698?q=80&w=300&auto=format&fit=crop' },
+  { id: 27, name: 'Stuffed Bell Peppers', price: 540, category: 'Keto', calories: '370 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?q=80&w=300&auto=format&fit=crop' },
+  { id: 28, name: 'Chia Seed Pudding', price: 350, category: 'Breakfast', calories: '210 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?q=80&w=300&auto=format&fit=crop' },
+  { id: 29, name: 'Broccoli Soup', price: 300, category: 'Vegan', calories: '160 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?q=80&w=300&auto=format&fit=crop' },
+  { id: 30, name: 'Grilled Sea Bass', price: 700, category: 'Seafood', calories: '340 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1516714435131-44d6b64dc3a2?q=80&w=300&auto=format&fit=crop' }
 ];
 
 const ExploreMenu = () => {
@@ -106,7 +109,7 @@ const ExploreMenu = () => {
                 <p className="text-xs font-semibold text-gray-400 mb-4 uppercase tracking-wider">{dish.category}</p>
                 
                 <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
-                  <span className="text-xl font-black text-green-700">${dish.price}</span>
+                  <span className="text-xl font-black text-green-700">₹{dish.price}</span>
                   <button 
                     onClick={() => addToCart(dish)}
                     className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl font-bold text-xs shadow-md shadow-green-100 transition-all active:scale-95 hover:shadow-green-200"

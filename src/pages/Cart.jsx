@@ -64,7 +64,7 @@ const Cart = () => {
                 <div className="flex-grow">
                   <h3 className="font-bold text-lg text-green-950">{item.name}</h3>
                   <p className="text-sm text-gray-500 mb-2 capitalize">{item.category || 'Healthy Food'}</p>
-                  <p className="font-black text-green-700">${item.price}</p>
+                  <p className="font-black text-green-700">₹{item.price}</p>
                 </div>
 
                 {/* Quantity Controls */}
@@ -92,15 +92,15 @@ const Cart = () => {
             <div className="space-y-4 mb-8">
               <div className="flex justify-between text-gray-600 font-medium">
                 <span>Subtotal</span>
-                <span>${subtotal.toFixed(2)}</span>
+                <span>₹{subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-gray-600 font-medium">
                 <span>Delivery Fee</span>
-                <span>${deliveryFee.toFixed(2)}</span>
+                <span>₹{deliveryFee.toFixed(2)}</span>
               </div>
               <div className="border-t pt-4 flex justify-between">
                 <span className="text-xl font-bold text-green-950">Total</span>
-                <span className="text-xl font-black text-green-700">${total.toFixed(2)}</span>
+                <span className="text-xl font-black text-green-700">₹{total.toFixed(2)}</span>
               </div>
             </div>
 
