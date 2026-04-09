@@ -24,28 +24,28 @@ const Home = () => {
       name: 'Quinoa Salad Bowl',
       image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS51_vDD0AibLYjV101hSrbx2uiSQzdN7Hmgg&s',
       desc: 'With avocado, chickpeas & lemon dressing.',
-      price: 12.99, // Numbers mein rakha hai calculation ke liye
+      price: 2.99, // Numbers mein rakha hai calculation ke liye
     },
     {
       id: 102,
       name: 'Grilled Salmon Bowl',
       image: 'https://i0.wp.com/thesensitivefoodiekitchen.com/wp-content/uploads/2023/09/Buddha-bowl-pic.png?fit=675%2C675&ssl=1',
       desc: 'Served over brown rice with steamed veggies.',
-      price: 18.50,
+      price: 8.50,
     },
     {
       id: 103,
       name: 'Berry Smoothie Bowl',
       image: 'https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?q=80&w=300&auto=format&fit=crop',
       desc: 'Packed with antioxidants, granola & nuts.',
-      price: 9.75,
+      price: 5.75,
     },
     {
       id: 104,
       name: 'Mediterranean Wrap',
       image: 'https://images.unsplash.com/photo-1565299543923-37dd37887442?q=80&w=300&auto=format&fit=crop',
       desc: 'Hummus, feta, olives & fresh greens.',
-      price: 11.00,
+      price: 5.00,
     },
   ];
 
