@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Search, Leaf, Flame, Heart } from 'lucide-react';
+import { Search, Flame } from 'lucide-react';
+import { useCart } from '../context/CartContext'; 
+import AIAdvisor from '../components/AIAdvisor'; // AI Advisor import kiya
 
 const menuData = [
+  // ... tera 30 dishes wala data yahan rahega (keeping it same)
   { id: 1, name: 'Quinoa Salad', category: 'Vegan', price: 12.99, calories: '320 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=300&auto=format&fit=crop' },
   { id: 2, name: 'Grilled Chicken Breast', category: 'High Protein', price: 15.50, calories: '450 kcal', type: 'non-veg', image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?q=80&w=300&auto=format&fit=crop' },
   { id: 3, name: 'Avocado Toast', category: 'Breakfast', price: 9.99, calories: '280 kcal', type: 'veg', image: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?q=80&w=300&auto=format&fit=crop' },
@@ -36,10 +39,13 @@ const menuData = [
 
 const ExploreMenu = () => {
   const [filter, setFilter] = useState('All');
-  const [searchTerm, setSearchTerm] = useState('');
+  
+  // 1. Local searchTerm hata kar Context wala searchTerm nikalo
+  const { addToCart, searchTerm, setSearchTerm } = useCart();
 
   const filteredDishes = menuData.filter(dish => {
     const matchesFilter = filter === 'All' || dish.type === filter || dish.category === filter;
+    // Context wala searchTerm use ho raha hai
     const matchesSearch = dish.name.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
@@ -47,16 +53,22 @@ const ExploreMenu = () => {
   return (
     <div className="min-h-screen bg-white p-6 md:p-12">
       <div className="max-w-7xl mx-auto">
+        
+        {/* 2. AI ADVISOR SECTION - ID de di smooth scroll ke liye */}
+        <div id="ai-advisor" className="mb-16 scroll-mt-24">
+           <AIAdvisor />
+        </div>
+
         <h1 className="text-4xl font-black text-green-900 mb-8">Fuel Your Body 🥗</h1>
 
         {/* Filters & Search */}
         <div className="flex flex-wrap items-center justify-between gap-4 mb-12">
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {['All', 'veg', 'non-veg', 'Vegan', 'High Protein'].map((cat) => (
+          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            {['All', 'veg', 'non-veg', 'Vegan', 'High Protein', 'Keto', 'Breakfast', 'Seafood'].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`px-6 py-2 rounded-full font-bold text-sm transition-all whitespace-nowrap ${filter === cat ? 'bg-green-600 text-white' : 'bg-green-50 text-green-700 border border-green-100 hover:bg-green-100'}`}
+                className={`px-6 py-2 rounded-full font-bold text-sm transition-all whitespace-nowrap ${filter === cat ? 'bg-green-600 text-white shadow-lg shadow-green-100' : 'bg-green-50 text-green-700 border border-green-100 hover:bg-green-100'}`}
               >
                 {cat.toUpperCase()}
               </button>
@@ -68,8 +80,9 @@ const ExploreMenu = () => {
             <input 
               type="text" 
               placeholder="Search dishes..."
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 outline-none"
+              value={searchTerm} // Controlled by Context
+              onChange={(e) => setSearchTerm(e.target.value)} // Context update
+              className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-500 outline-none transition-all"
             />
           </div>
         </div>
@@ -77,22 +90,27 @@ const ExploreMenu = () => {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {filteredDishes.map((dish) => (
-            <div key={dish.id} className="group bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300">
+            <div key={dish.id} className="group bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col">
               <div className="relative h-48 overflow-hidden">
                 <img src={dish.image} alt={dish.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-green-800 flex items-center gap-1">
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-green-800 flex items-center gap-1 shadow-sm">
                   <Flame size={12} className="text-orange-500" /> {dish.calories}
                 </div>
               </div>
-              <div className="p-6">
+              
+              <div className="p-6 flex flex-col flex-grow">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold text-lg text-gray-800 leading-tight">{dish.name}</h3>
-                  <div className={`w-3 h-3 rounded-full border ${dish.type === 'veg' ? 'bg-green-500 border-green-700' : 'bg-red-500 border-red-700'}`}></div>
+                  <h3 className="font-bold text-lg text-gray-800 leading-tight group-hover:text-green-700 transition-colors">{dish.name}</h3>
+                  <div className={`w-3 h-3 mt-1.5 rounded-full border-2 ${dish.type === 'veg' ? 'bg-green-500 border-green-100' : 'bg-red-500 border-red-100'}`}></div>
                 </div>
-                <p className="text-sm text-gray-500 mb-4">{dish.category}</p>
-                <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold text-gray-400 mb-4 uppercase tracking-wider">{dish.category}</p>
+                
+                <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
                   <span className="text-xl font-black text-green-700">${dish.price}</span>
-                  <button className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-lg shadow-lg shadow-green-100 transition-colors">
+                  <button 
+                    onClick={() => addToCart(dish)}
+                    className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-xl font-bold text-xs shadow-md shadow-green-100 transition-all active:scale-95 hover:shadow-green-200"
+                  >
                     Add to Cart
                   </button>
                 </div>
@@ -100,6 +118,13 @@ const ExploreMenu = () => {
             </div>
           ))}
         </div>
+
+        {/* Empty State */}
+        {filteredDishes.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-gray-400 text-lg font-medium">No dishes found matching your search. 🥗</p>
+          </div>
+        )}
       </div>
     </div>
   );
